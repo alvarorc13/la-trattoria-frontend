@@ -1,0 +1,17 @@
+<div class="cliente-container">
+  <header class="cliente-header">
+    <h1>La Trattoria</h1>
+    <span class="mesa-badge">Mesa {{ mesaId }}</span>
+  </header>
+
+  <nav class="cliente-nav">
+    <a [routerLink]="['carta']" routerLinkActive="active">Carta</a>
+    <a [routerLink]="['cesta']" routerLinkActive="active">
+      Cesta ({{ cestaService.cantidadTotal() }})
+    </a>
+  </nav>
+
+  <main class="cliente-content">
+    <router-outlet />
+  </main>
+</div>

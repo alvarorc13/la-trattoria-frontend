@@ -1,0 +1,51 @@
+.cliente-container {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #fff;
+}
+
+.cliente-header {
+  background: #c0392b;
+  color: white;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cliente-header h1 {
+  font-size: 20px;
+  font-style: italic;
+}
+
+.mesa-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.cliente-nav {
+  display: flex;
+  background: #a93226;
+}
+
+.cliente-nav a {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.cliente-nav a:hover,
+.cliente-nav a.active {
+  color: white;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.cliente-content {
+  padding: 16px;
+}
