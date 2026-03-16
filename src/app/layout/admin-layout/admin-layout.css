@@ -1,0 +1,87 @@
+.admin-container {
+  min-height: 100vh;
+}
+
+.admin-header {
+  background: #2c3e50;
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-header h1 {
+  font-size: 20px;
+  font-style: italic;
+}
+
+.header-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-info button {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  padding: 8px 16px;
+}
+
+.header-info button:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.admin-nav {
+  background: #34495e;
+  padding: 0 24px;
+  display: flex;
+  gap: 4px;
+}
+
+.admin-nav a {
+  padding: 12px 20px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.admin-nav a:hover,
+.admin-nav a.active {
+  color: white;
+  border-bottom-color: #c0392b;
+}
+
+.admin-content {
+  padding: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #27ae60;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+  animation: toastIn 0.3s ease;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
