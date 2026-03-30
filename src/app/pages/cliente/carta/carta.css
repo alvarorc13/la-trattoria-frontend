@@ -1,0 +1,114 @@
+.carta h2 {
+  margin-bottom: 16px;
+  color: #c0392b;
+}
+
+.categorias-filtro {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.categorias-filtro button {
+  background: #eee;
+  color: #555;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.categorias-filtro button.active {
+  background: #c0392b;
+  color: white;
+}
+
+.platos-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.plato-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+}
+
+.plato-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.plato-info {
+  padding: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.plato-info h3 {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.descripcion {
+  font-size: 12px;
+  color: #888;
+  flex: 1;
+}
+
+.plato-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.precio {
+  font-weight: 700;
+  color: #c0392b;
+}
+
+.plato-footer button {
+  background: #c0392b;
+  color: white;
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+.plato-footer button:hover {
+  background: #a93226;
+}
+
+.sin-platos {
+  text-align: center;
+  color: #999;
+  padding: 40px 0;
+}
+
+.scroll-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 0;
+  color: #999;
+  font-size: 14px;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #eee;
+  border-top-color: #c0392b;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

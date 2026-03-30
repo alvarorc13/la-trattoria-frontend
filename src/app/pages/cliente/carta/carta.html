@@ -1,0 +1,47 @@
+<div class="carta">
+  <h2>Nuestra Carta</h2>
+
+  <div class="categorias-filtro">
+    <button
+      [class.active]="categoriaActiva() === null"
+      (click)="filtrarPorCategoria(null)"
+    >
+      Todos
+    </button>
+    @for (cat of categorias(); track cat.id) {
+      <button
+        [class.active]="categoriaActiva() === cat.id"
+        (click)="filtrarPorCategoria(cat.id)"
+      >
+        {{ cat.nombre | titlecase }}
+      </button>
+    }
+  </div>
+
+  <div class="platos-grid">
+    @for (plato of platosFiltrados; track plato.id) {
+      <div class="plato-card">
+        @if (plato.imagen) {
+          <img [src]="plato.imagen" [alt]="plato.nombre" />
+        }
+        <div class="plato-info">
+          <h3>{{ plato.nombre }}</h3>
+          <p class="descripcion">{{ plato.descripcion }}</p>
+          <div class="plato-footer">
+            <span class="precio">{{ plato.precio | currency: 'EUR' }}</span>
+            <button (click)="agregar(plato)">Añadir</button>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <p class="sin-platos">No hay platos disponibles</p>
+    }
+  </div>
+
+  @if (cargando()) {
+    <div class="scroll-loading">
+      <span class="spinner"></span>
+      <span>Cargando más platos…</span>
+    </div>
+  }
+</div>
