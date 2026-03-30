@@ -1,0 +1,95 @@
+.cesta h2 {
+  margin-bottom: 16px;
+  color: #c0392b;
+}
+
+.cesta-vacia {
+  text-align: center;
+  padding: 40px 0;
+  color: #999;
+}
+
+.cesta-vacia button {
+  margin-top: 16px;
+  background: #c0392b;
+  color: white;
+}
+
+.cesta-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cesta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.item-info h3 {
+  font-size: 15px;
+}
+
+.item-precio {
+  font-size: 13px;
+  color: #888;
+}
+
+.item-cantidad {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.item-cantidad button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #eee;
+  padding: 0;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cesta-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  margin-top: 16px;
+  border-top: 2px solid #eee;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.total-precio {
+  color: #c0392b;
+}
+
+.cesta-acciones {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn-secondary {
+  flex: 1;
+  background: #eee;
+  color: #555;
+}
+
+.btn-primary {
+  flex: 2;
+  background: #c0392b;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #a93226;
+}

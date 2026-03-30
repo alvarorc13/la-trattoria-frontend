@@ -1,0 +1,36 @@
+<div class="cesta">
+  <h2>Tu Cesta</h2>
+
+  @if (cestaService.items().length === 0) {
+    <div class="cesta-vacia">
+      <p>Tu cesta está vacía</p>
+      <button (click)="irACarta()">Ver carta</button>
+    </div>
+  } @else {
+    <div class="cesta-items">
+      @for (item of cestaService.items(); track item.plato.id) {
+        <div class="cesta-item">
+          <div class="item-info">
+            <h3>{{ item.plato.nombre }}</h3>
+            <span class="item-precio">{{ item.plato.precio | currency: 'EUR' }}</span>
+          </div>
+          <div class="item-cantidad">
+            <button (click)="cestaService.quitar(item.plato.id)">-</button>
+            <span>{{ item.cantidad }}</span>
+            <button (click)="cestaService.agregar(item.plato)">+</button>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="cesta-total">
+      <span>Total:</span>
+      <span class="total-precio">{{ cestaService.total() | currency: 'EUR' }}</span>
+    </div>
+
+    <div class="cesta-acciones">
+      <button class="btn-secondary" (click)="cestaService.vaciar()">Vaciar cesta</button>
+      <button class="btn-primary" (click)="irAPago()">Ir al pago</button>
+    </div>
+  }
+</div>
