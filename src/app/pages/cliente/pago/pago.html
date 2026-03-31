@@ -1,0 +1,33 @@
+<div class="pago">
+  @if (pagado()) {
+    <div class="pago-exito">
+      <h2>Pago realizado correctamente</h2>
+      <p>Tu pedido está en camino a tu mesa.</p>
+      <button (click)="volverACarta()">Volver a la carta</button>
+    </div>
+  } @else {
+    <h2>Confirmar pedido</h2>
+
+    <div class="resumen">
+      @for (item of cestaService.items(); track item.plato.id) {
+        <div class="resumen-item">
+          <span>{{ item.plato.nombre }} x{{ item.cantidad }}</span>
+          <span>{{ item.plato.precio * item.cantidad | currency: 'EUR' }}</span>
+        </div>
+      }
+    </div>
+
+    <div class="pago-total">
+      <span>Total a pagar:</span>
+      <span class="total-precio">{{ cestaService.total() | currency: 'EUR' }}</span>
+    </div>
+
+    <button
+      class="btn-pagar"
+      (click)="confirmarPago()"
+      [disabled]="procesando() || cestaService.items().length === 0"
+    >
+      {{ procesando() ? 'Procesando...' : 'Confirmar y pagar' }}
+    </button>
+  }
+</div>

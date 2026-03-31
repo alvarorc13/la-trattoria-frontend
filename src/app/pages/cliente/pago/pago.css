@@ -1,0 +1,68 @@
+.pago h2 {
+  margin-bottom: 20px;
+  color: #c0392b;
+}
+
+.pago-exito {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.pago-exito h2 {
+  color: #27ae60;
+}
+
+.pago-exito p {
+  margin: 16px 0;
+  color: #666;
+}
+
+.pago-exito button {
+  background: #c0392b;
+  color: white;
+}
+
+.resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resumen-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.pago-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  margin: 20px 0;
+  border-top: 2px solid #eee;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.total-precio {
+  color: #c0392b;
+}
+
+.btn-pagar {
+  width: 100%;
+  background: #27ae60;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+}
+
+.btn-pagar:hover {
+  background: #219a52;
+}
+
+.btn-pagar:disabled {
+  background: #ccc;
+}
