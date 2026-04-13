@@ -1,0 +1,52 @@
+<div class="gestion">
+  <h2>Gestión de Platos</h2>
+
+  <button class="btn-nuevo" (click)="nuevoPlato()">Nuevo plato</button>
+
+  <div class="platos-tabla">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Precio</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (plato of platos(); track plato.id) {
+          <tr [class.inactivo]="plato.disponibilidad === 'inactivo'">
+            <td>{{ plato.nombre }}</td>
+            <td>{{ plato.categoria?.nombre | titlecase }}</td>
+            <td>{{ plato.precio | currency: 'EUR' }}</td>
+            <td>
+              <span class="badge" [class.badge-activo]="plato.disponibilidad === 'activo'" [class.badge-inactivo]="plato.disponibilidad === 'inactivo'">
+                {{ plato.disponibilidad === 'activo' ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td class="acciones">
+              <button class="btn-editar" (click)="editarPlato(plato)">Editar</button>
+              <button class="btn-toggle" (click)="confirmarToggle(plato)">
+                {{ plato.disponibilidad === 'activo' ? 'Desactivar' : 'Activar' }}
+              </button>
+              <button class="btn-eliminar" (click)="confirmarEliminar(plato)">Eliminar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@if (modalVisible()) {
+  <div class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <p>{{ modalMensaje }}</p>
+      <div class="modal-acciones">
+        <button class="btn-modal-cancelar" (click)="cerrarModal()">Cancelar</button>
+        <button class="btn-modal-confirmar" (click)="aceptarModal()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+}

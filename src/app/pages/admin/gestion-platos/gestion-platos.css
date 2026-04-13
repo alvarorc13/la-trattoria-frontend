@@ -1,0 +1,149 @@
+/* Platos */
+.gestion h2 {
+  margin-bottom: 16px;
+}
+
+.btn-nuevo {
+  background: #c0392b;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.btn-nuevo:hover {
+  background: #a93226;
+}
+
+.platos-tabla {
+  overflow-x: auto;
+}
+
+.platos-tabla table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+th {
+  background: #2c3e50;
+  color: white;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+tr.inactivo {
+  opacity: 0.5;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-activo {
+  background: #d4edda;
+  color: #155724;
+}
+
+.badge-inactivo {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.acciones {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-editar {
+  background: #3498db;
+  color: white;
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+.btn-editar:hover {
+  background: #2980b9;
+}
+
+.btn-toggle {
+  background: #f39c12;
+  color: white;
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+.btn-toggle:hover {
+  background: #d68910;
+}
+
+.btn-eliminar {
+  background: #e74c3c;
+  color: white;
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+.btn-eliminar:hover {
+  background: #c0392b;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  padding: 28px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal p {
+  font-size: 15px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.modal-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-modal-cancelar {
+  background: #95a5a6;
+  color: white;
+}
+
+.btn-modal-cancelar:hover {
+  background: #7f8c8d;
+}
+
+.btn-modal-confirmar {
+  background: #e74c3c;
+  color: white;
+}
+
+.btn-modal-confirmar:hover {
+  background: #c0392b;
+}
