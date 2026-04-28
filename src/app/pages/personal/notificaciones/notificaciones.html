@@ -1,0 +1,32 @@
+<div class="notificaciones">
+  <h2>Notificaciones de nuevos pedidos</h2>
+
+  <button class="btn-refresh" (click)="cargarPedidos()">Actualizar</button>
+
+  <div class="pedidos-lista">
+    @for (pedido of pedidos(); track pedido.id) {
+      <div class="pedido-card">
+        <div class="pedido-header">
+          <span class="pedido-id">Pedido #{{ pedido.id }}</span>
+          <span class="pedido-mesa">Mesa {{ pedido.mesa.numero }}</span>
+        </div>
+        <div class="pedido-detalles">
+          <ul>
+            @for (detalle of pedido.detalles; track detalle.nombre) {
+              <li>{{ detalle.nombre }} x{{ detalle.cantidad }} — {{ detalle.precio * detalle.cantidad | currency: 'EUR' }}</li>
+            }
+          </ul>
+        </div>
+        <div class="pedido-info">
+          <span>{{ pedido.fechaHora | date: 'HH:mm' }}</span>
+          <span class="pedido-total">Total: {{ pedido.total | currency: 'EUR' }}</span>
+        </div>
+        <button class="btn-leido" (click)="marcarLeido(pedido.id)">
+          Marcar como leído
+        </button>
+      </div>
+    } @empty {
+      <p class="sin-pedidos">No hay notificaciones nuevas</p>
+    }
+  </div>
+</div>
