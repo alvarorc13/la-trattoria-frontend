@@ -1,0 +1,50 @@
+<div class="nuevo-plato">
+  <h2>Nuevo plato</h2>
+  <form class="form-plato" [formGroup]="form" (ngSubmit)="crear()">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" formControlName="nombre" />
+      @if (form.get('nombre')!.touched && form.get('nombre')!.hasError('required')) {
+        <span class="error">El nombre es obligatorio</span>
+      }
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" formControlName="descripcion" rows="4"></textarea>
+      @if (form.get('descripcion')!.touched && form.get('descripcion')!.hasError('required')) {
+        <span class="error">La descripción es obligatoria</span>
+      }
+    </div>
+    <div class="form-group">
+      <label for="precio">Precio (€)</label>
+      <input id="precio" type="number" formControlName="precio" step="0.01" />
+      @if (form.get('precio')!.touched && form.get('precio')!.hasError('required')) {
+        <span class="error">El precio es obligatorio</span>
+      }
+      @if (form.get('precio')!.touched && form.get('precio')!.hasError('min')) {
+        <span class="error">El precio debe ser mayor que 0</span>
+      }
+    </div>
+    <div class="form-group">
+      <label for="imagen">URL Imagen <span class="opcional">(opcional)</span></label>
+      <input id="imagen" formControlName="imagen" />
+    </div>
+    <div class="form-group">
+      <label for="categoria">Categoría</label>
+      <select id="categoria" formControlName="categoriaId">
+        <option [value]="0" disabled>Selecciona categoría</option>
+        @for (cat of categorias(); track cat.id) {
+          <option [value]="cat.id">{{ cat.nombre | titlecase }}</option>
+        }
+      </select>
+      @if (form.get('categoriaId')!.touched && form.get('categoriaId')!.hasError('min')) {
+        <span class="error">Debes seleccionar una categoría</span>
+      }
+    </div>
+
+    <div class="form-acciones">
+      <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+      <button type="submit" class="btn-guardar" [disabled]="form.invalid">Crear plato</button>
+    </div>
+  </form>
+</div>
