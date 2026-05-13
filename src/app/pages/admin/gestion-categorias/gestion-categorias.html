@@ -1,0 +1,35 @@
+<div class="gestion-categorias">
+  <h2>Gestión de Categorías</h2>
+
+  <div class="categorias-form">
+    <input
+      [(ngModel)]="nuevaCategoria"
+      placeholder="Nueva categoría..."
+      (keyup.enter)="crearCategoria()"
+    />
+    <button class="btn-add" (click)="crearCategoria()" [disabled]="!nuevaCategoria.trim()">Añadir</button>
+  </div>
+
+  <div class="categorias-grid">
+    @for (cat of categorias(); track cat.id) {
+      <div class="categoria-card">
+        <span class="categoria-nombre">{{ cat.nombre | titlecase }}</span>
+        <button class="btn-eliminar" (click)="confirmarEliminar(cat)">Eliminar</button>
+      </div>
+    } @empty {
+      <p class="empty">No hay categorías creadas.</p>
+    }
+  </div>
+</div>
+
+@if (modalVisible()) {
+  <div class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <p>{{ modalMensaje }}</p>
+      <div class="modal-acciones">
+        <button class="btn-cancelar" (click)="cerrarModal()">Cancelar</button>
+        <button class="btn-confirmar" (click)="aceptarModal()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+}
