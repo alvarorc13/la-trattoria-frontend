@@ -1,41 +1,45 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuariosService } from '../../../services/usuarios';
 import { AuthService } from '../../../services/auth';
-import { Usuario } from '../../../models/usuario.model';
-import { signal } from '@angular/core';
 
 @Component({
   selector: 'app-nuevo-usuario',
   templateUrl: './nuevo-usuario.html',
   styleUrl: './nuevo-usuario.css',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [ReactiveFormsModule],
 })
 export class NuevoUsuario implements OnInit {
   private router = inject(Router);
   private usuariosService = inject(UsuariosService);
   private authService = inject(AuthService);
+  private fb = inject(FormBuilder);
 
-  usuario = signal<any>({ rol: 'CLIENTE', activo: true, password: '' });
   mensaje = signal<string>('');
+
+  form = this.fb.group({
+    nombre: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    rol: ['CLIENTE', Validators.required],
+    activo: [true],
+  });
 
   ngOnInit(): void {}
 
-  guardar(): void {
+  crear(): void {
+    if (this.form.invalid) return;
     const token = this.authService.token();
-    const u = this.usuario();
-    if (!u.nombre || !u.email || !u.password || !u.rol || !token) {
-      this.mensaje.set('Completa todos los campos');
-      return;
-    }
+    if (!token) return;
+    const v = this.form.getRawValue();
     this.usuariosService.create({
-      nombre: u.nombre,
-      email: u.email,
-      passwordHash: u.password,
-      rol: u.rol
+      nombre: v.nombre!,
+      email: v.email!,
+      passwordHash: v.password!,
+      rol: v.rol!,
+      // activo no se envía en create, solo en update
     }, token).subscribe({
       next: () => {
         this.mensaje.set('Usuario creado');
@@ -49,5 +53,9 @@ export class NuevoUsuario implements OnInit {
         }
       }
     });
+  }
+
+  cancelar(): void {
+    this.router.navigate(['/panel/gestion-usuarios']);
   }
 }

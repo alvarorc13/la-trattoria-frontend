@@ -1,28 +1,54 @@
-form {
+.nuevo-usuario {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.nuevo-usuario h2 {
+  margin-bottom: 24px;
+}
+
+.form-plato {
+  background: white;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #555;
+}
+
+.error {
+  display: block;
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.form-acciones {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 400px;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
 }
-label {
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
+
+.btn-cancelar {
+  background: #95a5a6;
+  color: white;
 }
-input, select {
-  padding: 0.5rem;
-  font-size: 1rem;
+
+.btn-cancelar:hover {
+  background: #7f8c8d;
 }
-button {
-  padding: 0.7rem;
-  background: #2d8f5a;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.mensaje {
-  margin-top: 1rem;
-  color: #c00;
-  font-weight: bold;
+
+.btn-guardar {
+  background: #27ae60;
+  color: white;
 }
