@@ -58,6 +58,11 @@ export const routes: Routes = [
           import('./pages/admin/nuevo-plato/nuevo-plato').then((m) => m.NuevoPlato),
       },
       {
+        path: 'editar-usuario/:id',
+        loadComponent: () =>
+          import('./pages/admin/gestion-usuarios/editar-usuario').then((m) => m.EditarUsuario),
+      },
+      {
         path: 'editar-plato/:id',
         loadComponent: () =>
           import('./pages/admin/editar-plato/editar-plato').then((m) => m.EditarPlato),
