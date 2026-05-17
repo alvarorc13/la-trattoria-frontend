@@ -17,7 +17,7 @@ export class UsuariosService {
   }
 
   getAll(token: string): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(this.apiUrl, { headers: this.authHeaders(token) });
+    return this.http.get<Usuario[]>(`${this.apiUrl}/admin/todos`, { headers: this.authHeaders(token) });
   }
 
   getById(id: number, token: string): Observable<Usuario> {
