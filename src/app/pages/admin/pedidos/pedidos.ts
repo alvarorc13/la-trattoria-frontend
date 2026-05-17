@@ -7,7 +7,9 @@ import { CurrencyPipe, TitleCasePipe } from '@angular/common';
 @Component({
   selector: 'app-pedidos',
   standalone: true,
-  template: `<h2>Gestión de pedidos</h2><p>Aquí iría la gestión de pedidos.</p>`
+  templateUrl: './pedidos.html',
+  styleUrl: './pedidos.css',
+  imports: [CurrencyPipe, TitleCasePipe],
 })
  export class Pedidos implements OnInit {
    private pedidosService = inject(PedidosService);
