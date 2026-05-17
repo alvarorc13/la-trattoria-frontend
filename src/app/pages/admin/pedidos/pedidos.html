@@ -1,0 +1,47 @@
+<div class="pedidos">
+  <h2>Gestión de Pedidos</h2>
+
+  <div class="pedidos-tabla">
+    <table>
+      <thead>
+        <tr>
+          <th>Mesa</th>
+          <th>Fecha/Hora</th>
+          <th>Total</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (pedido of pedidos(); track pedido.id) {
+          <tr>
+            <td>{{ pedido.mesa.numero }}</td>
+            <td>{{ pedido.fechaHora }}</td>
+            <td>{{ pedido.total | currency: 'EUR' }}</td>
+            <td>{{ pedido.estado | titlecase }}</td>
+            <td class="acciones">
+              <button class="btn-leido" (click)="marcarLeido(pedido)">Marcar leído</button>
+              <button class="btn-entregado" (click)="marcarEntregado(pedido)">Marcar entregado</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="empty">No hay pedidos pendientes.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@if (modalVisible()) {
+  <div class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <p>{{ modalMensaje }}</p>
+      <div class="modal-acciones">
+        <button class="btn-modal-cancelar" (click)="cerrarModal()">Cancelar</button>
+        <button class="btn-modal-confirmar" (click)="aceptarModal()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+}
