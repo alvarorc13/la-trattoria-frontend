@@ -62,6 +62,26 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/admin/editar-plato/editar-plato').then((m) => m.EditarPlato),
       },
+      {
+        path: 'gestion-usuarios',
+        loadComponent: () =>
+          import('./pages/admin/gestion-usuarios/gestion-usuarios').then((m) => m.GestionUsuarios),
+      },
+      {
+        path: 'nuevo-usuario',
+        loadComponent: () =>
+          import('./pages/admin/nuevo-usuario/nuevo-usuario').then((m) => m.NuevoUsuario),
+      },
+      {
+        path: 'editar-usuario/:id',
+        loadComponent: () =>
+          import('./pages/admin/editar-usuario/editar-usuario').then((m) => m.EditarUsuario),
+      },
+      {
+        path: 'historial-pedidos',
+        loadComponent: () =>
+          import('./pages/admin/historial-pedidos/historial-pedidos').then((m) => m.HistorialPedidos),
+      },
       { path: '', redirectTo: 'notificaciones', pathMatch: 'full' },
     ],
   },

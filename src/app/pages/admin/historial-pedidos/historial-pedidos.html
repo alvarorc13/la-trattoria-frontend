@@ -1,0 +1,76 @@
+<div class="gestion">
+  <h2>Historial de Pedidos</h2>
+
+  <div class="pedidos-tabla">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>Mesa</th>
+          <th>Estado</th>
+          <th>Total</th>
+          <th>Detalles</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (pedido of pedidos(); track pedido.id) {
+          <tr>
+            <td>#{{ pedido.id }}</td>
+            <td>{{ pedido.fechaHora | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td>Mesa {{ pedido.mesa.numero }}</td>
+            <td>
+              <span class="badge"
+                [class.badge-nuevo]="pedido.estado === 'nuevo'"
+                [class.badge-encamino]="pedido.estado === 'en_camino'">
+                {{ estadoLabel(pedido.estado) }}
+              </span>
+            </td>
+            <td class="precio">{{ pedido.total | currency: 'EUR' }}</td>
+            <td>
+              <button class="btn-detalle" (click)="toggleDetalle(pedido.id)">
+                {{ expandido() === pedido.id ? 'Ocultar' : 'Ver' }}
+              </button>
+            </td>
+          </tr>
+          @if (expandido() === pedido.id) {
+            <tr class="fila-detalle">
+              <td colspan="6">
+                <div class="detalle-contenido">
+                  <table class="tabla-detalle">
+                    <thead>
+                      <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio ud.</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (d of pedido.detalles; track d.nombre) {
+                        <tr>
+                          <td>{{ d.nombre }}</td>
+                          <td>{{ d.cantidad }}</td>
+                          <td>{{ d.precio | currency: 'EUR' }}</td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          }
+        } @empty {
+          <tr>
+            <td colspan="6" class="empty">No hay pedidos registrados.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div #scrollSentinel class="scroll-sentinel">
+    @if (hayMas()) {
+      <span class="loading-more">Cargando más pedidos...</span>
+    }
+  </div>
+</div>
