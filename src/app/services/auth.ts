@@ -12,7 +12,7 @@ export interface LoginResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly apiUrl = 'http://localhost:8080/api/v1/auth';
+  private readonly apiUrl = 'https://la-trattoria-backend-production.up.railway.app/api/v1/auth';
   readonly token = signal<string | null>(localStorage.getItem('token'));
   readonly rol = signal<string | null>(localStorage.getItem('rol'));
   readonly nombre = signal<string | null>(localStorage.getItem('nombre'));
