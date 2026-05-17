@@ -26,7 +26,7 @@ export interface LineaPedido {
   providedIn: 'root',
 })
 export class PedidosService {
-  private readonly apiUrl = 'https://la-trattoria-backend-production.up.railway.app/api/v1/pedidos';
+  private readonly apiUrl = 'http://localhost:8080/api/v1/pedidos';
 
   constructor(private http: HttpClient) {}
 
@@ -37,11 +37,6 @@ export class PedidosService {
   getPendientes(token: string): Observable<Pedido[]> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
     return this.http.get<Pedido[]>(`${this.apiUrl}/pendientes`, { headers });
-  }
-
-  getTodos(token: string): Observable<Pedido[]> {
-    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.get<Pedido[]>(`${this.apiUrl}/admin/todos`, { headers });
   }
 
   marcarLeido(id: number, token: string): Observable<Pedido> {

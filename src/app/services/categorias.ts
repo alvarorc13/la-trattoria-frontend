@@ -7,7 +7,7 @@ import { Categoria } from '../models/categoria.model';
   providedIn: 'root',
 })
 export class CategoriasService {
-  private readonly apiUrl = 'https://la-trattoria-backend-production.up.railway.app/api/v1/categorias';
+  private readonly apiUrl = 'http://localhost:8080/api/v1/categorias';
 
   constructor(private http: HttpClient) {}
 

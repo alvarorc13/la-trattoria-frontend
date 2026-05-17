@@ -98,20 +98,6 @@ tr.inactivo {
   background: #c0392b;
 }
 
-/* Scroll sentinel */
-.scroll-sentinel {
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.loading-more {
-  color: #999;
-  font-size: 13px;
-  font-style: italic;
-}
-
 /* Modal */
 .modal-overlay {
   position: fixed;
