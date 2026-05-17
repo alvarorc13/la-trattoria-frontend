@@ -1,18 +1,16 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuariosService } from '../../../services/usuarios';
 import { AuthService } from '../../../services/auth';
 import { Usuario } from '../../../models/usuario.model';
-import { signal } from '@angular/core';
 
 @Component({
   selector: 'app-editar-usuario',
   templateUrl: './editar-usuario.html',
   styleUrl: './editar-usuario.css',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [ReactiveFormsModule],
 })
 export class EditarUsuario implements OnInit {
   private route = inject(ActivatedRoute);
@@ -23,6 +21,14 @@ export class EditarUsuario implements OnInit {
   usuario = signal<Usuario | null>(null);
   mensaje = signal<string>('');
 
+  private fb = inject(FormBuilder);
+  form = this.fb.group({
+    nombre: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    rol: ['', Validators.required],
+    activo: [true],
+  });
+
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     const token = this.authService.token();
@@ -31,7 +37,15 @@ export class EditarUsuario implements OnInit {
       return;
     }
     this.usuariosService.getById(id, token).subscribe({
-      next: (u) => this.usuario.set(u),
+      next: (u) => {
+        this.usuario.set(u);
+        this.form.patchValue({
+          nombre: u.nombre,
+          email: u.email,
+          rol: u.rol,
+          activo: u.activo,
+        });
+      },
       error: (err) => {
         if (err.status === 401 || err.status === 403) {
           this.mensaje.set('Sesión expirada o sin permisos. Vuelve a iniciar sesión.');
@@ -43,13 +57,16 @@ export class EditarUsuario implements OnInit {
   }
 
   guardar(): void {
+    if (this.form.invalid) return;
     const token = this.authService.token();
     const u = this.usuario();
     if (!u || !token) return;
+    const v = this.form.getRawValue();
     this.usuariosService.update(u.id, {
-      nombre: u.nombre,
-      email: u.email,
-      rol: u.rol
+      nombre: v.nombre!,
+      email: v.email!,
+      rol: v.rol!,
+      activo: v.activo!
     }, token).subscribe({
       next: () => {
         this.mensaje.set('Usuario actualizado');

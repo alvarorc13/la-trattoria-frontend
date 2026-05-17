@@ -1,22 +1,44 @@
 <h2>Editar Usuario</h2>
-<form (ngSubmit)="guardar()" *ngIf="usuario() as u" #form="ngForm">
-  <label>Nombre:
-    <input type="text" [(ngModel)]="u.nombre" name="nombre" required />
-  </label>
-  <label>Email:
-    <input type="email" [(ngModel)]="u.email" name="email" required />
-  </label>
-  <label>Rol:
-    <select [(ngModel)]="u.rol" name="rol" required>
-      <option value="ADMINISTRADOR">Administrador</option>
-      <option value="PERSONAL">Personal</option>
-      <option value="CLIENTE">Cliente</option>
-    </select>
-  </label>
-  <label>Activo:
-    <input type="checkbox" [(ngModel)]="u.activo" name="activo" />
-  </label>
-  <button type="submit">Guardar cambios</button>
-  <button type="button" (click)="eliminar()" style="background:#c00; color:#fff; margin-left:1rem;">Eliminar usuario</button>
-  <div class="mensaje">{{ mensaje() }}</div>
-</form>
+@if (usuario()) {
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" formControlName="nombre" />
+      @if (form.get('nombre')!.touched && form.get('nombre')!.hasError('required')) {
+        <span class="error">El nombre es obligatorio</span>
+      }
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" />
+      @if (form.get('email')!.touched && form.get('email')!.hasError('required')) {
+        <span class="error">El email es obligatorio</span>
+      }
+      @if (form.get('email')!.touched && form.get('email')!.hasError('email')) {
+        <span class="error">El email no es válido</span>
+      }
+    </div>
+    <div class="form-group">
+      <label for="rol">Rol</label>
+      <select id="rol" formControlName="rol">
+        <option value="ADMINISTRADOR">Administrador</option>
+        <option value="PERSONAL">Personal</option>
+        <option value="CLIENTE">Cliente</option>
+      </select>
+      @if (form.get('rol')!.touched && form.get('rol')!.hasError('required')) {
+        <span class="error">El rol es obligatorio</span>
+      }
+    </div>
+    <div class="form-group">
+      <label for="activo">Activo</label>
+      <input id="activo" type="checkbox" formControlName="activo" />
+    </div>
+    <div class="form-acciones">
+      <button type="submit" [disabled]="form.invalid">Guardar cambios</button>
+      <button type="button" (click)="eliminar()" style="background:#c00; color:#fff; margin-left:1rem;">Eliminar usuario</button>
+    </div>
+    <div class="mensaje">{{ mensaje() }}</div>
+  </form>
+} @else {
+  <p class="loading">Cargando usuario...</p>
+}
