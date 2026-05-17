@@ -1,4 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuariosService } from '../../../services/usuarios';
 import { AuthService } from '../../../services/auth';
@@ -10,6 +12,7 @@ import { signal } from '@angular/core';
   templateUrl: './editar-usuario.html',
   styleUrl: './editar-usuario.css',
   standalone: true,
+  imports: [CommonModule, FormsModule],
 })
 export class EditarUsuario implements OnInit {
   private route = inject(ActivatedRoute);
@@ -37,7 +40,12 @@ export class EditarUsuario implements OnInit {
     const token = this.authService.token();
     const u = this.usuario();
     if (!u || !token) return;
-    this.usuariosService.update(u.id, u, token).subscribe({
+    this.usuariosService.update(u.id, {
+      nombre: u.nombre,
+      email: u.email,
+      rol: u.rol,
+      activo: u.activo
+    }, token).subscribe({
       next: () => {
         this.mensaje.set('Usuario actualizado');
         setTimeout(() => this.router.navigate(['/panel/gestion-usuarios']), 1000);

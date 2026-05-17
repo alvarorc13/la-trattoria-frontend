@@ -1,4 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuariosService } from '../../../services/usuarios';
 import { AuthService } from '../../../services/auth';
@@ -10,13 +12,14 @@ import { signal } from '@angular/core';
   templateUrl: './nuevo-usuario.html',
   styleUrl: './nuevo-usuario.css',
   standalone: true,
+  imports: [CommonModule, FormsModule],
 })
 export class NuevoUsuario implements OnInit {
   private router = inject(Router);
   private usuariosService = inject(UsuariosService);
   private authService = inject(AuthService);
 
-  usuario = signal<Partial<Usuario>>({ rol: 'CLIENTE', activo: true });
+  usuario = signal<any>({ rol: 'CLIENTE', activo: true, password: '' });
   mensaje = signal<string>('');
 
   ngOnInit(): void {}
@@ -28,7 +31,13 @@ export class NuevoUsuario implements OnInit {
       this.mensaje.set('Completa todos los campos');
       return;
     }
-    this.usuariosService.create(u as any, token).subscribe({
+    this.usuariosService.create({
+      nombre: u.nombre,
+      email: u.email,
+      password: u.password,
+      rol: u.rol,
+      activo: u.activo
+    }, token).subscribe({
       next: () => {
         this.mensaje.set('Usuario creado');
         setTimeout(() => this.router.navigate(['/panel/gestion-usuarios']), 1000);
