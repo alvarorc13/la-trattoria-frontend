@@ -35,8 +35,7 @@ export class NuevoUsuario implements OnInit {
       nombre: u.nombre,
       email: u.email,
       password: u.password,
-      rol: u.rol,
-      activo: u.activo
+      rol: u.rol
     }, token).subscribe({
       next: () => {
         this.mensaje.set('Usuario creado');
