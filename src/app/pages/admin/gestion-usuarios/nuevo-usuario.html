@@ -1,0 +1,24 @@
+<h2>Nuevo Usuario</h2>
+<form (ngSubmit)="guardar()" #form="ngForm">
+  <label>Nombre:
+    <input type="text" [(ngModel)]="usuario().nombre" name="nombre" required />
+  </label>
+  <label>Email:
+    <input type="email" [(ngModel)]="usuario().email" name="email" required />
+  </label>
+  <label>Password:
+    <input type="password" [(ngModel)]="usuario().password" name="password" required />
+  </label>
+  <label>Rol:
+    <select [(ngModel)]="usuario().rol" name="rol" required>
+      <option value="ADMINISTRADOR">Administrador</option>
+      <option value="PERSONAL">Personal</option>
+      <option value="CLIENTE">Cliente</option>
+    </select>
+  </label>
+  <label>Activo:
+    <input type="checkbox" [(ngModel)]="usuario().activo" name="activo" />
+  </label>
+  <button type="submit">Crear usuario</button>
+  <div class="mensaje">{{ mensaje() }}</div>
+</form>
