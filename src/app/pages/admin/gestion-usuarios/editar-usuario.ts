@@ -17,11 +17,11 @@ export class EditarUsuario implements OnInit {
   private router = inject(Router);
   private usuariosService = inject(UsuariosService);
   private authService = inject(AuthService);
+  private fb = inject(FormBuilder);
 
   usuario = signal<Usuario | null>(null);
   mensaje = signal<string>('');
 
-  private fb = inject(FormBuilder);
   form = this.fb.group({
     nombre: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -82,19 +82,7 @@ export class EditarUsuario implements OnInit {
     });
   }
 
-  eliminar(): void {
-    const token = this.authService.token();
-    const u = this.usuario();
-    if (!u || !token) return;
-    this.usuariosService.delete(u.id, token).subscribe({
-      next: () => this.router.navigate(['/panel/gestion-usuarios']),
-      error: (err) => {
-        if (err.status === 401 || err.status === 403) {
-          this.mensaje.set('Sesión expirada o sin permisos. Vuelve a iniciar sesión.');
-        } else {
-          this.mensaje.set('Error al eliminar usuario');
-        }
-      }
-    });
+  cancelar(): void {
+    this.router.navigate(['/panel/gestion-usuarios']);
   }
 }

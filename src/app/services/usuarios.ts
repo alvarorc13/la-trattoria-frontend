@@ -7,7 +7,6 @@ import { Usuario } from '../models/usuario.model';
   providedIn: 'root',
 })
 export class UsuariosService {
-  // Cambia aquí la URL a la de tu backend real
   private readonly apiUrl = 'https://la-trattoria-backend-production.up.railway.app/api/v1/usuarios';
 
   constructor(private http: HttpClient) {}
@@ -28,11 +27,7 @@ export class UsuariosService {
     return this.http.post<Usuario>(this.apiUrl, usuario, { headers: this.authHeaders(token) });
   }
 
-  update(
-    id: number,
-    usuario: { nombre?: string; email?: string; password?: string; rol?: string; activo?: boolean },
-    token: string
-  ): Observable<Usuario> {
+  update(id: number, usuario: { nombre?: string; email?: string; password?: string; rol?: string; activo?: boolean }, token: string): Observable<Usuario> {
     return this.http.put<Usuario>(`${this.apiUrl}/${id}`, usuario, { headers: this.authHeaders(token) });
   }
 

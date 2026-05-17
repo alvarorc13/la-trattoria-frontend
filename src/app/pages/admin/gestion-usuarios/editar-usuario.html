@@ -35,8 +35,8 @@
         <input id="activo" type="checkbox" formControlName="activo" />
       </div>
       <div class="form-acciones">
+        <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
         <button type="submit" class="btn-guardar" [disabled]="form.invalid">Guardar cambios</button>
-        <button type="button" class="btn-cancelar" (click)="eliminar()">Eliminar usuario</button>
       </div>
       <div class="mensaje">{{ mensaje() }}</div>
     </form>
