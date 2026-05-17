@@ -24,7 +24,7 @@ export class UsuariosService {
     return this.http.get<Usuario>(`${this.apiUrl}/${id}`, { headers: this.authHeaders(token) });
   }
 
-  create(usuario: { nombre: string; email: string; password: string; rol: string }, token: string): Observable<Usuario> {
+  create(usuario: { nombre: string; email: string; passwordHash: string; rol: string }, token: string): Observable<Usuario> {
     return this.http.post<Usuario>(this.apiUrl, usuario, { headers: this.authHeaders(token) });
   }
 

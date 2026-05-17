@@ -34,7 +34,7 @@ export class NuevoUsuario implements OnInit {
     this.usuariosService.create({
       nombre: u.nombre,
       email: u.email,
-      password: u.password,
+      passwordHash: u.password,
       rol: u.rol
     }, token).subscribe({
       next: () => {
