@@ -27,12 +27,18 @@ export class EditarUsuario implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     const token = this.authService.token();
     if (!id || !token) {
-      this.router.navigate(['/panel/gestion-usuarios']);
+      this.mensaje.set('No se pudo cargar el usuario. Token inválido o ID incorrecto.');
       return;
     }
     this.usuariosService.getById(id, token).subscribe({
       next: (u) => this.usuario.set(u),
-      error: () => this.router.navigate(['/panel/gestion-usuarios'])
+      error: (err) => {
+        if (err.status === 401 || err.status === 403) {
+          this.mensaje.set('Sesión expirada o sin permisos. Vuelve a iniciar sesión.');
+        } else {
+          this.mensaje.set('No se pudo cargar el usuario.');
+        }
+      }
     });
   }
 
