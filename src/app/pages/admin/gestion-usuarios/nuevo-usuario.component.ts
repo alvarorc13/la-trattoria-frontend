@@ -41,7 +41,13 @@ export class NuevoUsuario implements OnInit {
         this.mensaje.set('Usuario creado');
         setTimeout(() => this.router.navigate(['/panel/gestion-usuarios']), 1000);
       },
-      error: () => this.mensaje.set('Error al crear usuario')
+      error: (err) => {
+        if (err.status === 401 || err.status === 403) {
+          this.mensaje.set('Sesión expirada o sin permisos. Vuelve a iniciar sesión.');
+        } else {
+          this.mensaje.set('Error al crear usuario');
+        }
+      }
     });
   }
 }

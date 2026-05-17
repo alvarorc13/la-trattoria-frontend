@@ -49,7 +49,13 @@ export class EditarUsuario implements OnInit {
         this.mensaje.set('Usuario actualizado');
         setTimeout(() => this.router.navigate(['/panel/gestion-usuarios']), 1000);
       },
-      error: () => this.mensaje.set('Error al actualizar usuario')
+      error: (err) => {
+        if (err.status === 401 || err.status === 403) {
+          this.mensaje.set('Sesión expirada o sin permisos. Vuelve a iniciar sesión.');
+        } else {
+          this.mensaje.set('Error al actualizar usuario');
+        }
+      }
     });
   }
 
@@ -59,7 +65,13 @@ export class EditarUsuario implements OnInit {
     if (!u || !token) return;
     this.usuariosService.delete(u.id, token).subscribe({
       next: () => this.router.navigate(['/panel/gestion-usuarios']),
-      error: () => this.mensaje.set('Error al eliminar usuario')
+      error: (err) => {
+        if (err.status === 401 || err.status === 403) {
+          this.mensaje.set('Sesión expirada o sin permisos. Vuelve a iniciar sesión.');
+        } else {
+          this.mensaje.set('Error al eliminar usuario');
+        }
+      }
     });
   }
 }
