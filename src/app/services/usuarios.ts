@@ -7,6 +7,7 @@ import { Usuario } from '../models/usuario.model';
   providedIn: 'root',
 })
 export class UsuariosService {
+  // Cambia aquí la URL a la de tu backend real
   private readonly apiUrl = 'http://localhost:8080/api/v1/usuarios';
 
   constructor(private http: HttpClient) {}
