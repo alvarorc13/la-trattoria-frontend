@@ -1,4 +1,4 @@
-import { Usuario } from '../../models/usuario.model';
+import { Usuario } from '../../../models/usuario.model';
 
 export const USUARIOS_MOCK: Usuario[] = [
   { id: 1, nombre: 'Admin', email: 'admin@trattoria.com', rol: 'ADMINISTRADOR', activo: true },
