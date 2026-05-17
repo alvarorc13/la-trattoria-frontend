@@ -18,7 +18,7 @@
         @for (plato of platos(); track plato.id) {
           <tr [class.inactivo]="plato.disponibilidad === 'inactivo'">
             <td>{{ plato.nombre }}</td>
-            <td>{{ plato.categoria?.nombre | titlecase }}</td>
+            <td>{{ plato.categoria.nombre | titlecase }}</td>
             <td>{{ plato.precio | currency: 'EUR' }}</td>
             <td>
               <span class="badge" [class.badge-activo]="plato.disponibilidad === 'activo'" [class.badge-inactivo]="plato.disponibilidad === 'inactivo'">
