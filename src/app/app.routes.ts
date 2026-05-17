@@ -62,6 +62,16 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/admin/editar-plato/editar-plato').then((m) => m.EditarPlato),
       },
+      {
+        path: 'pedidos',
+        loadComponent: () =>
+          import('./pages/admin/pedidos/pedidos').then((m) => m.Pedidos),
+      },
+      {
+        path: 'gestion-usuarios',
+        loadComponent: () =>
+          import('./pages/admin/gestion-usuarios/gestion-usuarios').then((m) => m.GestionUsuarios),
+      },
       { path: '', redirectTo: 'notificaciones', pathMatch: 'full' },
     ],
   },
