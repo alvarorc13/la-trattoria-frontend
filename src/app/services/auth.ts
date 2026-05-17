@@ -46,10 +46,10 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    return this.rol() === 'administrador';
+    return this.rol()?.toLowerCase() === 'administrador';
   }
 
   isPersonal(): boolean {
-    return this.rol() === 'personal';
+    return this.rol()?.toLowerCase() === 'personal';
   }
 }
