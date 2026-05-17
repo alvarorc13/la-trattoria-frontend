@@ -25,8 +25,9 @@ export class EditarUsuario implements OnInit {
   form = this.fb.group({
     nombre: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    rol: ['', Validators.required],
+    rol: ['CLIENTE', Validators.required],
     activo: [true],
+    password: [''], // solo para evitar que se envíe null
   });
 
   ngOnInit(): void {
@@ -42,7 +43,7 @@ export class EditarUsuario implements OnInit {
         this.form.patchValue({
           nombre: u.nombre,
           email: u.email,
-          rol: u.rol,
+          rol: u.rol ?? 'CLIENTE',
           activo: u.activo,
         });
       },
@@ -62,12 +63,17 @@ export class EditarUsuario implements OnInit {
     const u = this.usuario();
     if (!u || !token) return;
     const v = this.form.getRawValue();
-    this.usuariosService.update(u.id, {
+    // No enviar password_hash nulo
+    const updatePayload: any = {
       nombre: v.nombre!,
       email: v.email!,
       rol: v.rol!,
       activo: v.activo!
-    }, token).subscribe({
+    };
+    if (v.password && v.password.trim().length > 0) {
+      updatePayload.passwordHash = v.password;
+    }
+    this.usuariosService.update(u.id, updatePayload, token).subscribe({
       next: () => {
         this.mensaje.set('Usuario actualizado');
         setTimeout(() => this.router.navigate(['/panel/gestion-usuarios']), 1000);
