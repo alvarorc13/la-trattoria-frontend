@@ -43,8 +43,7 @@ export class EditarUsuario implements OnInit {
     this.usuariosService.update(u.id, {
       nombre: u.nombre,
       email: u.email,
-      rol: u.rol,
-      activo: u.activo
+      rol: u.rol
     }, token).subscribe({
       next: () => {
         this.mensaje.set('Usuario actualizado');

@@ -1,20 +1,20 @@
 <h2>Editar Usuario</h2>
-<form (ngSubmit)="guardar()" *ngIf="usuario()" #form="ngForm">
+<form (ngSubmit)="guardar()" *ngIf="usuario() as u" #form="ngForm">
   <label>Nombre:
-    <input type="text" [(ngModel)]="usuario().nombre" name="nombre" required />
+    <input type="text" [(ngModel)]="u.nombre" name="nombre" required />
   </label>
   <label>Email:
-    <input type="email" [(ngModel)]="usuario().email" name="email" required />
+    <input type="email" [(ngModel)]="u.email" name="email" required />
   </label>
   <label>Rol:
-    <select [(ngModel)]="usuario().rol" name="rol" required>
+    <select [(ngModel)]="u.rol" name="rol" required>
       <option value="ADMINISTRADOR">Administrador</option>
       <option value="PERSONAL">Personal</option>
       <option value="CLIENTE">Cliente</option>
     </select>
   </label>
   <label>Activo:
-    <input type="checkbox" [(ngModel)]="usuario().activo" name="activo" />
+    <input type="checkbox" [(ngModel)]="u.activo" name="activo" />
   </label>
   <button type="submit">Guardar cambios</button>
   <button type="button" (click)="eliminar()" style="background:#c00; color:#fff; margin-left:1rem;">Eliminar usuario</button>
