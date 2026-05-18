@@ -27,7 +27,7 @@ export interface LineaPedido {
   providedIn: 'root',
 })
 export class PedidosService {
-  private readonly apiUrl = 'http://localhost:8080/api/v1/pedidos';
+  private readonly apiUrl = 'https://la-trattoria-backend-production.up.railway.app/api/v1/pedidos';
 
   constructor(private http: HttpClient) {}
 
