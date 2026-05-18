@@ -43,11 +43,6 @@ export const routes: Routes = [
           import('./pages/personal/notificaciones/notificaciones').then((m) => m.Notificaciones),
       },
       {
-        path: 'pedidos',
-        loadComponent: () =>
-          import('./pages/admin/pedidos/pedidos').then((m) => m.PedidosComponent),
-      },
-      {
         path: 'gestion-platos',
         loadComponent: () =>
           import('./pages/admin/gestion-platos/gestion-platos').then((m) => m.GestionPlatos),
