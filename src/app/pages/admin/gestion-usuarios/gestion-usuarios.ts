@@ -3,10 +3,14 @@ import { UsuariosService } from '../../../services/usuarios';
 import { AuthService } from '../../../services/auth';
 import { ToastService } from '../../../services/toast';
 
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-gestion-usuarios',
   templateUrl: './gestion-usuarios.html',
-  styleUrl: './gestion-usuarios.css'
+  styleUrl: './gestion-usuarios.css',
+  standalone: true,
+  imports: [CommonModule],
 })
 export class GestionUsuarios implements OnInit {
   private usuariosService = inject(UsuariosService);
