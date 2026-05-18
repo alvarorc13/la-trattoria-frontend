@@ -39,11 +39,17 @@ export class EditarUsuario implements OnInit {
     }
     this.usuariosService.getById(id, token).subscribe({
       next: (u) => {
-        this.usuario.set(u);
+        // Normalizar el rol recibido
+        let rol = (u.rol || 'CLIENTE').toUpperCase();
+        if (!["ADMINISTRADOR", "PERSONAL", "CLIENTE"].includes(rol)) {
+          rol = "CLIENTE";
+        }
+        console.log('Rol recibido del backend:', u.rol, 'Normalizado:', rol);
+        this.usuario.set({ ...u, rol });
         this.form.patchValue({
           nombre: u.nombre,
           email: u.email,
-          rol: u.rol ?? 'CLIENTE',
+          rol,
           activo: u.activo,
         });
       },
@@ -63,16 +69,21 @@ export class EditarUsuario implements OnInit {
     const u = this.usuario();
     if (!u || !token) return;
     const v = this.form.getRawValue();
-    // No enviar password_hash nulo
+    // Normalizar el rol antes de enviar
+    let rol = (v.rol || 'CLIENTE').toUpperCase();
+    if (!["ADMINISTRADOR", "PERSONAL", "CLIENTE"].includes(rol)) {
+      rol = "CLIENTE";
+    }
     const updatePayload: any = {
       nombre: v.nombre!,
       email: v.email!,
-      rol: v.rol!,
+      rol,
       activo: v.activo!
     };
     if (v.password && v.password.trim().length > 0) {
       updatePayload.passwordHash = v.password;
     }
+    console.log('Payload enviado al backend:', updatePayload);
     this.usuariosService.update(u.id, updatePayload, token).subscribe({
       next: () => {
         this.mensaje.set('Usuario actualizado');

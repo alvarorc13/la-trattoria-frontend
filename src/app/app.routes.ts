@@ -58,24 +58,9 @@ export const routes: Routes = [
           import('./pages/admin/nuevo-plato/nuevo-plato').then((m) => m.NuevoPlato),
       },
       {
-        path: 'editar-usuario/:id',
-        loadComponent: () =>
-          import('./pages/admin/gestion-usuarios/editar-usuario').then((m) => m.EditarUsuario),
-      },
-      {
         path: 'editar-plato/:id',
         loadComponent: () =>
           import('./pages/admin/editar-plato/editar-plato').then((m) => m.EditarPlato),
-      },
-      {
-        path: 'pedidos',
-        loadComponent: () =>
-          import('./pages/admin/pedidos/pedidos').then((m) => m.Pedidos),
-      },
-      {
-        path: 'gestion-usuarios',
-        loadComponent: () =>
-          import('./pages/admin/gestion-usuarios/gestion-usuarios').then((m) => m.GestionUsuarios),
       },
       { path: '', redirectTo: 'notificaciones', pathMatch: 'full' },
     ],
