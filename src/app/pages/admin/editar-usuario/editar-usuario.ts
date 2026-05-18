@@ -23,7 +23,7 @@ export class EditarUsuario implements OnInit {
     nombre: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: [''],
-    rol: ['', Validators.required],
+    rol: ['administrador', Validators.required],
     activo: [true]
   });
 
@@ -40,7 +40,7 @@ export class EditarUsuario implements OnInit {
           this.form.patchValue({
             nombre: usuario.nombre,
             email: usuario.email,
-            rol: usuario.rol,
+            rol: usuario.rol?.toLowerCase?.() ?? usuario.rol,
             activo: usuario.activo
           });
         });
