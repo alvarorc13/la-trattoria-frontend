@@ -59,7 +59,7 @@ export class EditarUsuario implements OnInit {
       rol: v.rol,
       activo: v.activo
     };
-    if (v.password) usuarioData.password = v.password;
+    if (v.password) usuarioData.passwordHash = v.password;
     this.usuariosService.update(this.usuarioId, usuarioData, token).subscribe(() => {
       this.toast.mostrar('Usuario actualizado correctamente');
       this.router.navigate(['/panel/gestion-usuarios']);

@@ -27,7 +27,7 @@ export class UsuariosService {
     return this.http.post<Usuario>(this.apiUrl, usuario, { headers: this.authHeaders(token) });
   }
 
-  update(id: number, usuario: { nombre?: string; email?: string; password?: string; rol?: string; activo?: boolean }, token: string): Observable<Usuario> {
+  update(id: number, usuario: { nombre?: string; email?: string; passwordHash?: string; rol?: string; activo?: boolean }, token: string): Observable<Usuario> {
     return this.http.put<Usuario>(`${this.apiUrl}/${id}`, usuario, { headers: this.authHeaders(token) });
   }
 
