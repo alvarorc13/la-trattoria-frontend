@@ -1,4 +1,4 @@
-// Archivo renombrado para evitar problemas de import en Vercel
+// Archivo renombrado para evitar problemas de import en Vercel (forzar cambio menor)
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -60,3 +60,5 @@ export class PedidosService {
     return this.http.put<Pedido>(`${this.apiUrl}/${id}/entregar`, {}, { headers });
   }
 }
+
+// forced-redeploy
