@@ -6,8 +6,7 @@ import { ToastService } from '../../../services/toast';
 @Component({
   selector: 'app-gestion-usuarios',
   templateUrl: './gestion-usuarios.html',
-  styleUrl: './gestion-usuarios.css',
-  standalone: true,
+  styleUrl: './gestion-usuarios.css'
 })
 export class GestionUsuarios implements OnInit {
   private usuariosService = inject(UsuariosService);
@@ -28,7 +27,7 @@ export class GestionUsuarios implements OnInit {
     const token = this.authService.token();
     if (token) {
       this.usuariosService.getAll(token).subscribe({
-        next: (u) => this.usuarios.set(u),
+        next: (u: any[]) => this.usuarios.set(u),
         error: () => this.toast.mostrar('No se pudieron cargar los usuarios')
       });
     }

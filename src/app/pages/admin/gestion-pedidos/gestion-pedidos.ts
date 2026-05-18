@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { PedidosService, Pedido } from '../../../services/pedidos';
+import { PedidosService, Pedido } from '../../../services/pedidos.service';
 import { AuthService } from '../../../services/auth';
 import { ToastService } from '../../../services/toast';
 import { CurrencyPipe, DatePipe } from '@angular/common';
@@ -7,9 +7,7 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 @Component({
   selector: 'app-gestion-pedidos',
   templateUrl: './gestion-pedidos.html',
-  styleUrl: './gestion-pedidos.css',
-  standalone: true,
-  imports: [CurrencyPipe, DatePipe],
+  styleUrl: './gestion-pedidos.css'
 })
 export class GestionPedidos implements OnInit {
   private pedidosService = inject(PedidosService);
@@ -30,7 +28,7 @@ export class GestionPedidos implements OnInit {
     const token = this.authService.token();
     if (token) {
       this.pedidosService.obtenerTodos(token).subscribe({
-        next: (p) => this.pedidos.set(p),
+        next: (p: Pedido[]) => this.pedidos.set(p),
         error: () => this.toast.mostrar('No se pudieron cargar los pedidos')
       });
     }
