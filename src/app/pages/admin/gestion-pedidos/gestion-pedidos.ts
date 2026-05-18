@@ -2,8 +2,6 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { PedidosService, Pedido } from '../../../services/pedidos.service';
 import { AuthService } from '../../../services/auth';
 import { ToastService } from '../../../services/toast';
-import { CurrencyPipe, DatePipe } from '@angular/common';
-
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
