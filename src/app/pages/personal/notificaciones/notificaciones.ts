@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { PedidosService, Pedido } from '../../../services/pedidos';
+import { PedidosService, Pedido } from 'src/app/services/pedidos.service';
 import { AuthService } from '../../../services/auth';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 

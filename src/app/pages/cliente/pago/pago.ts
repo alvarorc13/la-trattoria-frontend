@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CestaService } from '../../../services/cesta';
-import { PedidosService } from '../../../services/pedidos';
+import { PedidosService } from 'src/app/services/pedidos.service';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
