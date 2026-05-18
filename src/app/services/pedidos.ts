@@ -1,3 +1,12 @@
+  obtenerTodos(token: string): Observable<Pedido[]> {
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return this.http.get<Pedido[]>(this.apiUrl, { headers });
+  }
+
+  eliminarPedido(id: number, token: string): Observable<void> {
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
+  }
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
