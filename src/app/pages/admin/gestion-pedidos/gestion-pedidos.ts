@@ -2,14 +2,14 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { PedidosService, Pedido } from '../../../services/pedidos';
 import { AuthService } from '../../../services/auth';
 import { ToastService } from '../../../services/toast';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-gestion-pedidos',
   templateUrl: './gestion-pedidos.html',
   styleUrl: './gestion-pedidos.css',
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, DatePipe],
 })
 export class GestionPedidos implements OnInit {
   private pedidosService = inject(PedidosService);
