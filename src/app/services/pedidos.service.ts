@@ -1,4 +1,4 @@
-// Cambio menor para forzar build en Vercel
+// Archivo renombrado para evitar problemas de import en Vercel
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
