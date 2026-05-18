@@ -1,0 +1,47 @@
+<div class="gestion">
+  <h2>Gestión de Usuarios</h2>
+  <div class="platos-tabla">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Activo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (usuario of usuarios(); track usuario.id_usuario || usuario.id) {
+          <tr>
+            <td>{{ usuario.id_usuario || usuario.id }}</td>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.rol }}</td>
+            <td>
+              <span class="badge" [class.badge-activo]="usuario.activo" [class.badge-inactivo]="!usuario.activo">
+                {{ usuario.activo ? 'Sí' : 'No' }}
+              </span>
+            </td>
+            <td class="acciones">
+              <button class="btn-eliminar" (click)="confirmarEliminar(usuario)">Eliminar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@if (modalVisible()) {
+  <div class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <p>{{ modalMensaje }}</p>
+      <div class="modal-acciones">
+        <button class="btn-modal-cancelar" (click)="cerrarModal()">Cancelar</button>
+        <button class="btn-modal-confirmar" (click)="aceptarModal()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+}

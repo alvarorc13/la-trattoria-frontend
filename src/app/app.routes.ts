@@ -52,6 +52,16 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/admin/gestion-categorias/gestion-categorias').then((m) => m.GestionCategorias),
       },
+            {
+        path: 'gestion-pedidos',
+        loadComponent: () =>
+          import('./pages/admin/gestion-pedidos/gestion-pedidos').then((m) => m.GestionPedidos),
+      },
+      {
+        path: 'gestion-usuarios',
+        loadComponent: () =>
+          import('./pages/admin/gestion-usuarios/gestion-usuarios').then((m) => m.GestionUsuarios),
+      },
       {
         path: 'nuevo-plato',
         loadComponent: () =>
