@@ -63,6 +63,16 @@ export const routes: Routes = [
           import('./pages/admin/gestion-usuarios/gestion-usuarios').then((m) => m.GestionUsuarios),
       },
       {
+        path: 'nuevo-usuario',
+        loadComponent: () =>
+          import('./pages/admin/nuevo-usuario/nuevo-usuario').then((m) => m.NuevoUsuario),
+      },
+      {
+        path: 'editar-usuario/:id',
+        loadComponent: () =>
+          import('./pages/admin/editar-usuario/editar-usuario').then((m) => m.EditarUsuario),
+      },
+      {
         path: 'nuevo-plato',
         loadComponent: () =>
           import('./pages/admin/nuevo-plato/nuevo-plato').then((m) => m.NuevoPlato),

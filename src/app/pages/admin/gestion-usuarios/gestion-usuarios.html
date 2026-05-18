@@ -1,5 +1,8 @@
 <div class="gestion">
   <h2>Gestión de Usuarios</h2>
+  <div style="display: flex; justify-content: flex-end; margin-bottom: 12px;">
+    <a class="btn-crear" routerLink="/panel/nuevo-usuario">Nuevo usuario</a>
+  </div>
   <div class="platos-tabla">
     <table>
       <thead>
@@ -25,6 +28,7 @@
               </span>
             </td>
             <td class="acciones">
+              <a class="btn-editar" [routerLink]="['/panel/editar-usuario', usuario.id_usuario || usuario.id]">Editar</a>
               <button class="btn-eliminar" (click)="confirmarEliminar(usuario)">Eliminar</button>
             </td>
           </tr>
