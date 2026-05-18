@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PedidosService, Pedido } from '../../../services/pedidos.service';
+import { DatePipe, CurrencyPipe, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.html',
-  styleUrls: ['./pedidos.css']
+  styleUrls: ['./pedidos.css'],
+  imports: [DatePipe, CurrencyPipe, TitleCasePipe],
 })
 export class PedidosComponent implements OnInit {
   pedidos: Pedido[] = [];

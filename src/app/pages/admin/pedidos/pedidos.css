@@ -1,4 +1,4 @@
-@import '../../gestion-platos/gestion-platos.css';
+@import '../gestion-platos/gestion-platos.css';
 
 .badge {
   display: inline-block;
