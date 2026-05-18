@@ -1,25 +1,35 @@
-<div class="pedidos-container">
+<div class="gestion">
   <h2>Lista de Pedidos</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Cliente</th>
-        <th>Fecha</th>
-        <th>Total</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let pedido of pedidos">
-        <td>{{ pedido.id }}</td>
-        <td>{{ pedido.cliente?.nombre || pedido.usuario?.nombre }}</td>
-        <td>{{ pedido.fecha }}</td>
-        <td>{{ pedido.total }}</td>
-        <td>
-          <button (click)="eliminarPedido(pedido.id)">Eliminar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="platos-tabla">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Mesa</th>
+          <th>Fecha</th>
+          <th>Total</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (pedido of pedidos; track pedido.id) {
+          <tr>
+            <td>{{ pedido.id }}</td>
+            <td>{{ pedido.mesa?.numero }}</td>
+            <td>{{ pedido.fechaHora | date: 'short' }}</td>
+            <td>{{ pedido.total | currency: 'EUR' }}</td>
+            <td>
+              <span class="badge" [class.badge-activo]="pedido.estado === 'nuevo'" [class.badge-inactivo]="pedido.estado !== 'nuevo'">
+                {{ pedido.estado | titlecase }}
+              </span>
+            </td>
+            <td class="acciones">
+              <button class="btn-eliminar" (click)="eliminarPedido(pedido.id)">Eliminar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>

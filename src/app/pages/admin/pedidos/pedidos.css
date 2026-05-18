@@ -1,19 +1,19 @@
-.pedidos-container {
-  padding: 2rem;
+@import '../../gestion-platos/gestion-platos.css';
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.7em;
+  border-radius: 12px;
+  font-size: 0.9em;
+  color: #fff;
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
+.badge-activo {
+  background: #27ae60;
 }
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
+.badge-inactivo {
+  background: #7f8c8d;
 }
-th {
-  background-color: #f2f2f2;
-}
-button {
+.acciones .btn-eliminar {
   background: #e74c3c;
   color: #fff;
   border: none;
@@ -21,6 +21,6 @@ button {
   border-radius: 4px;
   cursor: pointer;
 }
-button:hover {
+.acciones .btn-eliminar:hover {
   background: #c0392b;
 }
