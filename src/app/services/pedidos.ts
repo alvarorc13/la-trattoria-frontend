@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { API_URL } from '../config/api.config';
 
 export interface DetallePedido {
   nombre: string;
@@ -26,7 +27,7 @@ export interface LineaPedido {
   providedIn: 'root',
 })
 export class PedidosService {
-  private readonly apiUrl = 'https://la-trattoria-backend-production.up.railway.app/api/v1/pedidos';
+  private readonly apiUrl = `${API_URL}/pedidos`;
 
   constructor(private http: HttpClient) {}
 

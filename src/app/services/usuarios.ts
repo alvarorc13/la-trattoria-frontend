@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario.model';
+import { API_URL } from '../config/api.config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuariosService {
-  private readonly apiUrl = 'https://la-trattoria-backend-production.up.railway.app/api/v1/usuarios';
+  private readonly apiUrl = `${API_URL}/usuarios`;
 
   constructor(private http: HttpClient) {}
 

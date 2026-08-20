@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { API_URL } from '../config/api.config';
 
 export interface LoginResponse {
   token: string;
@@ -12,7 +13,7 @@ export interface LoginResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly apiUrl = 'https://la-trattoria-backend-production.up.railway.app/api/v1/auth';
+  private readonly apiUrl = `${API_URL}/auth`;
   readonly token = signal<string | null>(localStorage.getItem('token'));
   readonly rol = signal<string | null>(localStorage.getItem('rol'));
   readonly nombre = signal<string | null>(localStorage.getItem('nombre'));
