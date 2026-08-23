@@ -1,1 +1,1 @@
-export const API_URL = 'https://la-trattoria-backend-production.up.railway.app/api/v1';
+export const API_URL = 'https://la-trattoria-backend-243488375206.europe-southwest1.run.app//api/v1';
