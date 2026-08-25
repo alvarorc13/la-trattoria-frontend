@@ -18,6 +18,15 @@
             <button (click)="cestaService.quitar(item.plato.id)">-</button>
             <span>{{ item.cantidad }}</span>
             <button (click)="cestaService.agregar(item.plato)">+</button>
+            <button
+              class="btn-eliminar"
+              type="button"
+              aria-label="Eliminar {{ item.plato.nombre }} de la cesta"
+              title="Eliminar producto"
+              (click)="cestaService.eliminar(item.plato.id)"
+            >
+              &#128465;
+            </button>
           </div>
         </div>
       }

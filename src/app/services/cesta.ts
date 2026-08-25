@@ -6,7 +6,8 @@ import { ItemCesta } from '../models/cesta.model';
   providedIn: 'root',
 })
 export class CestaService {
-  readonly items = signal<ItemCesta[]>([]);
+  private readonly storageKey = 'la-trattoria-cesta';
+  readonly items = signal<ItemCesta[]>(this.cargarItems());
   readonly total = computed(() =>
     this.items().reduce((sum, item) => sum + item.plato.precio * item.cantidad, 0)
   );
@@ -18,13 +19,13 @@ export class CestaService {
     const current = this.items();
     const existing = current.find((i) => i.plato.id === plato.id);
     if (existing) {
-      this.items.set(
+      this.actualizar(
         current.map((i) =>
           i.plato.id === plato.id ? { ...i, cantidad: i.cantidad + 1 } : i
         )
       );
     } else {
-      this.items.set([...current, { plato, cantidad: 1 }]);
+      this.actualizar([...current, { plato, cantidad: 1 }]);
     }
   }
 
@@ -32,17 +33,55 @@ export class CestaService {
     const current = this.items();
     const existing = current.find((i) => i.plato.id === platoId);
     if (existing && existing.cantidad > 1) {
-      this.items.set(
+      this.actualizar(
         current.map((i) =>
           i.plato.id === platoId ? { ...i, cantidad: i.cantidad - 1 } : i
         )
       );
     } else {
-      this.items.set(current.filter((i) => i.plato.id !== platoId));
+      this.eliminar(platoId);
     }
   }
 
+  eliminar(platoId: number): void {
+    this.actualizar(this.items().filter((i) => i.plato.id !== platoId));
+  }
+
   vaciar(): void {
-    this.items.set([]);
+    this.actualizar([]);
+  }
+
+  private actualizar(items: ItemCesta[]): void {
+    this.items.set(items);
+    try {
+      localStorage.setItem(this.storageKey, JSON.stringify(items));
+    } catch {
+    }
+  }
+
+  private cargarItems(): ItemCesta[] {
+    try {
+      const stored = localStorage.getItem(this.storageKey);
+      if (!stored) {
+        return [];
+      }
+
+      const items: unknown = JSON.parse(stored);
+      if (!Array.isArray(items)) {
+        return [];
+      }
+
+      return items.filter(
+        (item): item is ItemCesta =>
+          typeof item === 'object' &&
+          item !== null &&
+          'plato' in item &&
+          'cantidad' in item &&
+          typeof item.cantidad === 'number' &&
+          item.cantidad > 0
+      );
+    } catch {
+      return [];
+    }
   }
 }
