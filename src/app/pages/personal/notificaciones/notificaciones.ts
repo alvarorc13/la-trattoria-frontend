@@ -14,9 +14,11 @@ export class Notificaciones implements OnInit {
   private authService = inject(AuthService);
 
   pedidos = signal<Pedido[]>([]);
+  private stompClient: any = null;
 
   ngOnInit(): void {
     this.cargarPedidos();
+    this.initWebSocket();
   }
 
   cargarPedidos(): void {
@@ -29,12 +31,73 @@ export class Notificaciones implements OnInit {
     }
   }
 
+  initWebSocket(): void {
+    const token = this.authService.token();
+    if (!token) return;
+
+    (async () => {
+      try {
+        // Dynamic imports avoid TypeScript module resolution issues during build
+        const stompModule: any = await import('@stomp/stompjs');
+        const sockjsModule: any = await import('sockjs-client');
+        const SockJS = (sockjsModule && sockjsModule.default) ? sockjsModule.default : sockjsModule;
+
+        // Prefer Client API
+        const Client = stompModule.Client || stompModule.Stomp?.Client || stompModule.Stomp || stompModule;
+
+        const backendUrl = 'https://la-trattoria-backend-243488375206.europe-southwest1.run.app/ws?access_token=' + token;
+        const wsUrl = backendUrl;
+
+        const client = new Client({
+          webSocketFactory: () => new SockJS(wsUrl),
+          debug: () => {},
+        });
+
+        client.onConnect = () => {
+          client.subscribe('/topic/notificaciones/cocineros', (msg: any) => {
+            try {
+              const payload = JSON.parse(msg.body);
+              const nuevo: Pedido = {
+                id: payload.pedidoId,
+                mesa: payload.mesa || { id: null, numero: '—' },
+                estado: 'nuevo',
+                fechaHora: payload.fechaHora,
+                total: payload.total || 0,
+                detalles: payload.detalles || [],
+              } as any;
+              this.pedidos.set([nuevo, ...this.pedidos()]);
+            } catch (e) {
+              console.error('Error parseando mensaje WS', e);
+            }
+          });
+        };
+
+        client.onStompError = (frame: any) => {
+          console.error('STOMP error', frame);
+        };
+
+        client.activate();
+        this.stompClient = client;
+      } catch (e) {
+        console.error('Error inicializando websocket', e);
+      }
+    })();
+  }
+
   marcarLeido(id: number): void {
     const token = this.authService.token();
     if (token) {
       this.pedidosService.marcarLeido(id, token).subscribe(() => {
         this.pedidos.set(this.pedidos().filter((p) => p.id !== id));
       });
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.stompClient && this.stompClient.deactivate) {
+      try { this.stompClient.deactivate(); } catch (e) { }
+    } else if (this.stompClient && this.stompClient.disconnect) {
+      try { this.stompClient.disconnect(() => {}); } catch (e) { }
     }
   }
 }
