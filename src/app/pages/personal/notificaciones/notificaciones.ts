@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { PedidosService, Pedido } from '../../../services/pedidos.service';
 import { AuthService } from '../../../services/auth';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { WS_URL } from '../../../config/api.config';
 
 @Component({
   selector: 'app-notificaciones',
@@ -35,16 +36,15 @@ export class Notificaciones implements OnInit {
     const token = this.authService.token();
     if (!token) return;
 
+    if (!(globalThis as any).global) {
+      (globalThis as any).global = globalThis;
+    }
+
     (async () => {
       try {
-        if (!(globalThis as any).global) {
-          (globalThis as any).global = globalThis;
-        }
-
-        // Dynamic imports avoid TypeScript module resolution issues during build
         const stompModule: any = await import('@stomp/stompjs');
         const sockjsModule: any = await import('sockjs-client');
-        const SockJS = sockjsModule?.default?.default || sockjsModule?.default || sockjsModule;
+        const SockJS = (sockjsModule && sockjsModule.default) ? sockjsModule.default : sockjsModule;
 
         const stompApi = stompModule?.default || stompModule;
         const Client = stompApi.Client || stompApi.Stomp?.Client;
@@ -52,8 +52,7 @@ export class Notificaciones implements OnInit {
           throw new TypeError('La exportación de @stomp/stompjs no contiene Client');
         }
 
-        const backendUrl = 'https://la-trattoria-backend-243488375206.europe-southwest1.run.app/ws?access_token=' + token;
-        const wsUrl = backendUrl;
+        const wsUrl = `${WS_URL}?access_token=${encodeURIComponent(token)}`;
 
         const client = new Client({
           webSocketFactory: () => new SockJS(wsUrl),
