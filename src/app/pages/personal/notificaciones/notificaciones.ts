@@ -44,17 +44,13 @@ export class Notificaciones implements OnInit {
         // Dynamic imports avoid TypeScript module resolution issues during build
         const stompModule: any = await import('@stomp/stompjs');
         const sockjsModule: any = await import('sockjs-client');
-        const SockJS = [
-          sockjsModule?.default,
-          sockjsModule?.default?.default,
-          sockjsModule,
-        ].find((candidate) => typeof candidate === 'function');
-        if (!SockJS) {
-          throw new TypeError('La exportación de sockjs-client no es constructora');
-        }
+        const SockJS = sockjsModule?.default?.default || sockjsModule?.default || sockjsModule;
 
-        // Prefer Client API
-        const Client = stompModule.Client || stompModule.Stomp?.Client || stompModule.Stomp || stompModule;
+        const stompApi = stompModule?.default || stompModule;
+        const Client = stompApi.Client || stompApi.Stomp?.Client;
+        if (typeof Client !== 'function') {
+          throw new TypeError('La exportación de @stomp/stompjs no contiene Client');
+        }
 
         const backendUrl = 'https://la-trattoria-backend-243488375206.europe-southwest1.run.app/ws?access_token=' + token;
         const wsUrl = backendUrl;
