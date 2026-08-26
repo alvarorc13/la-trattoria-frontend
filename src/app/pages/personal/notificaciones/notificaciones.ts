@@ -37,6 +37,10 @@ export class Notificaciones implements OnInit {
 
     (async () => {
       try {
+        if (!(globalThis as any).global) {
+          (globalThis as any).global = globalThis;
+        }
+
         // Dynamic imports avoid TypeScript module resolution issues during build
         const stompModule: any = await import('@stomp/stompjs');
         const sockjsModule: any = await import('sockjs-client');
