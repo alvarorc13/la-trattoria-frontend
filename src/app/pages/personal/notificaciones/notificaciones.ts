@@ -44,7 +44,14 @@ export class Notificaciones implements OnInit {
         // Dynamic imports avoid TypeScript module resolution issues during build
         const stompModule: any = await import('@stomp/stompjs');
         const sockjsModule: any = await import('sockjs-client');
-        const SockJS = (sockjsModule && sockjsModule.default) ? sockjsModule.default : sockjsModule;
+        const SockJS = [
+          sockjsModule?.default,
+          sockjsModule?.default?.default,
+          sockjsModule,
+        ].find((candidate) => typeof candidate === 'function');
+        if (!SockJS) {
+          throw new TypeError('La exportación de sockjs-client no es constructora');
+        }
 
         // Prefer Client API
         const Client = stompModule.Client || stompModule.Stomp?.Client || stompModule.Stomp || stompModule;
